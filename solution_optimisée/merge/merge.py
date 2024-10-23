@@ -1,5 +1,5 @@
 from typing import List
-from ..tree.tree import Tree
+from tree.tree import Tree
 
 class MergeBST():
     '''
