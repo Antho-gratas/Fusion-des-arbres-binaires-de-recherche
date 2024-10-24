@@ -19,14 +19,11 @@ class MergeBST():
         Returns:
             Tree: The new merged binary search tree
         '''
-        # Get the lists of node values for each tree based on the specified orders
         tree_ordered_1 = self._get_values_by_order(self.tree1, order1)
         tree_ordered_2 = self._get_values_by_order(self.tree2, order2)
-
-        # Merge the two lists
+        
         merged_values = self._merge_sorted_lists(tree_ordered_1, tree_ordered_2)
 
-        # Create a new tree with the merged values
         merged_tree = Tree(None)
         for value in merged_values:
             merged_tree.insert(value)
@@ -63,7 +60,6 @@ class MergeBST():
         merged_list = []
         i, j = 0, 0
 
-        # Merge the two lists by comparing elements
         while i < len(list1) and j < len(list2):
             if list1[i] < list2[j]:
                 merged_list.append(list1[i])
@@ -72,12 +68,10 @@ class MergeBST():
                 merged_list.append(list2[j])
                 j += 1
 
-        # If there are remaining elements in list1, add them
         while i < len(list1):
             merged_list.append(list1[i])
             i += 1
 
-        # If there are remaining elements in list2, add them
         while j < len(list2):
             merged_list.append(list2[j])
             j += 1
