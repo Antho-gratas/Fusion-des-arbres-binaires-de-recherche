@@ -55,6 +55,19 @@ A2.insert(45)
 A2.insert(25)
 A2.insert(65)
 
+# Test for "in-order" and "pre-order"
+print('Test for "in-order" and "pre-order"')
+solution = Solution(A1, A2, "in-order", "pre-order")
+solution.run()
+
+# Test for "in-order" and "post-order"
+print('Test for "in-order" and "post-order"')
 solution = Solution(A1, A2, "in-order", "post-order")
 solution.run()
 
+# Test for "pre-order" and "pre-order"
+print('Test for "pre-order" and "pre-order"')
+solution = Solution(A1, A2, "pre-order", "pre-order")
+solution.run()
+
+# Impossible to test with large values ​​because recursion blocks us

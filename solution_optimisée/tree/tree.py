@@ -183,8 +183,7 @@ class Tree():
         # Base case: No node
         if node is None:
             return [], 0, 0, 0
-
-        # No children.
+        
         if node.right is None and node.left is None:
             line = str(node.value)
             width = len(line)
@@ -192,7 +191,6 @@ class Tree():
             middle = width // 2
             return [line], width, height, middle
 
-        # Only left child.
         if node.right is None:
             lines, n, p, x = self._display_aux(node.left)
             s = str(node.value)
@@ -202,7 +200,6 @@ class Tree():
             shifted_lines = [line + u * ' ' for line in lines]
             return [first_line, second_line] + shifted_lines, n + u, p + 2, n // 2
 
-        # Only right child.
         if node.left is None:
             lines, n, p, x = self._display_aux(node.right)
             s = str(node.value)
@@ -212,7 +209,6 @@ class Tree():
             shifted_lines = [u * ' ' + line for line in lines]
             return [first_line, second_line] + shifted_lines, n + u, p + 2, u // 2
 
-        # Two children.
         left, n, p, x = self._display_aux(node.left)
         right, m, q, y = self._display_aux(node.right)
         s = str(node.value)
