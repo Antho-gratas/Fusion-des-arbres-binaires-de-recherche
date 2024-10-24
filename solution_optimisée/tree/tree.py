@@ -180,7 +180,6 @@ class Tree():
         """
         Returns list of strings, width, height, and horizontal coordinate of the root.
         """
-        # Base case: No node
         if node is None:
             return [], 0, 0, 0
         
