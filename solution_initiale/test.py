@@ -55,6 +55,7 @@ A2.insert(45)
 A2.insert(25)
 A2.insert(65)
 
+
 # Test for "in-order" and "pre-order"
 print('Test for "in-order" and "pre-order"')
 solution = Solution(A1, A2, "in-order", "pre-order")

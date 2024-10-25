@@ -31,6 +31,7 @@ class Solution:
         A3: Tree = self.merge_trees()
         print("Fusion de A1 et de A2:")
         A3.print_tree()
+        '''
         A4: Tree = Tree()
         A4.generate_random_tree(4)
         print("A4:")
@@ -38,6 +39,7 @@ class Solution:
         A5: Tree = self.merge_n_trees([self.A1, self.A2, A4])
         print("Fusion de A1, A2 et A4:")
         A5.print_tree()
+        '''
         
 A1: Tree = Tree()
 A1.insert(50)
@@ -52,6 +54,7 @@ A2: Tree = Tree()
 A2.insert(45)
 A2.insert(25)
 A2.insert(65)
+
 
 # Test for "in-order" and "pre-order"
 print('Test for "in-order" and "pre-order"')
@@ -71,6 +74,7 @@ solution.run()
 T1: Tree = Tree()
 T2: Tree = Tree()
 
+'''
 # Test for 50 000 and 20 000 nodes
 print('Test for 50 000 and 20 000 nodes')
 T1.generate_random_tree(50000)
@@ -89,5 +93,5 @@ print('Test for 100 000 and 100 000 nodes')
 solution2.A1.generate_random_tree(100000)
 solution2.A2.generate_random_tree(100000)  
 solution2.merge_trees().print_in_order()   
-
+'''
 
