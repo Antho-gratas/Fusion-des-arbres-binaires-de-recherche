@@ -1,98 +1,130 @@
 from typing import List
 from tree.tree import Tree
+from node.node import Node
+from collections import deque
 
 class MergeBST:
-    '''
-    Class to merge two binary search trees
-    '''
-
-    def __init__(self, tree1: Tree, tree2: Tree) -> None:
+    def __init__(self, tree1: Tree, tree2: Tree):
+        # Initialize the two binary search trees to be merged
         self.tree1 = tree1
         self.tree2 = tree2
 
     def merge(self, order1: str, order2: str) -> Tree:
         '''
-        Merge two binary search trees based on specified traversal orders.
+        Merges two binary search trees into a single balanced tree.
+        
         Args:
-            order1: str: The traversal order for tree1 (in-order, pre-order, post-order)
-            order2: str: The traversal order for tree2 (in-order, pre-order, post-order)
+            order1: str: Traversal type for the first tree (in-order, pre-order, post-order).
+            order2: str: Traversal type for the second tree (in-order, pre-order, post-order).
+        
         Returns:
-            Tree: The new balanced binary search tree
+            Tree: A new balanced binary search tree containing all elements from both original trees.
         '''
-        values1 = self._get_values_by_order(self.tree1, order1)
-        values2 = self._get_values_by_order(self.tree2, order2)
         
-        merged_values = self._concat_and_sort(values1, values2)
+        merged_tree = Tree()  
+        queue = deque()       
         
-        return self._sorted_list_to_balanced_bst(merged_values)
+        iterator1 = self.get_iterator(self.tree1, order1)
+        iterator2 = self.get_iterator(self.tree2, order2)
+        
+        value1 = next(iterator1, None)
+        value2 = next(iterator2, None)
 
-    def _get_values_by_order(self, tree: Tree, order: str) -> List[int]:
+        def insert_balanced(tree, value):
+            queue.append(tree.root) if tree.root else setattr(tree, 'root', Node(value))
+            while queue:
+                current = queue.popleft()
+                if value < current.value:
+                    if current.left is None:
+                        current.left = Node(value)
+                        break
+                    else:
+                        queue.append(current.left)
+                else:
+                    if current.right is None:
+                        current.right = Node(value)
+                        break
+                    else:
+                        queue.append(current.right)
+
+        while value1 is not None or value2 is not None:
+            if value2 is None or (value1 is not None and value1 <= value2):
+                insert_balanced(merged_tree, value1)
+                value1 = next(iterator1, None)
+            else:
+                insert_balanced(merged_tree, value2)
+                value2 = next(iterator2, None)
+
+        return merged_tree
+
+    def get_iterator(self, tree: Tree, order: str):
         '''
-        Get the node values of a tree based on the specified order.
-        Args:
-            tree: Tree: The tree to traverse
-            order: str: The traversal order ('in-order', 'pre-order', 'post-order')
-        Returns:
-            List[int]: A list of node values in the specified order
+        Returns an iterator based on the specified traversal order.
         '''
-        if order == 'in-order':
-            return tree.get_in_order()
-        elif order == 'pre-order':
-            return tree.get_pre_order()
-        elif order == 'post-order':
-            return tree.get_post_order()
+        if order == "in-order":
+            return self.in_order_iter(tree.root)
+        elif order == "pre-order":
+            return self.pre_order_iter(tree.root)
+        elif order == "post-order":
+            return self.post_order_iter(tree.root)
         else:
-            raise ValueError(f"Invalid order: {order}")
+            raise ValueError("Invalid traversal order specified")
 
-    def _concat_and_sort(self, list1: List[int], list2: List[int]) -> List[int]:
-        ''' 
-        Concatenate two lists and return a single sorted list.
-        Args:
-            list1: List[int]: The first list
-            list2: List[int]: The second list
-        Returns:
-            List[int]: The merged sorted list
+    def in_order_iter(self, node):
         '''
-        return sorted(list1 + list2)
-
-    def _sorted_list_to_balanced_bst(self, sorted_values: List[int]) -> Tree:
+        In-order traversal iterator.
         '''
-        Convert a sorted list to a balanced binary search tree iteratively.
+        stack, current = [], node
+        while stack or current:
+            while current:
+                stack.append(current)
+                current = current.left
+            current = stack.pop()
+            yield current.value
+            current = current.right
+
+    def pre_order_iter(self, node):
         '''
-        if not sorted_values:
-            return None
-        
-        tree = Tree()  
-        queue = [(0, len(sorted_values) - 1)]  
+        Pre-order traversal iterator.
+        '''
+        stack = [node]
+        while stack:
+            current = stack.pop()
+            if current:
+                yield current.value
+                stack.append(current.right)
+                stack.append(current.left)
 
-        while queue:
-            start, end = queue.pop(0)
-            
-            if start > end:
-                continue
-            
-            mid = (start + end) // 2
-            tree.insert(sorted_values[mid]) 
-
-            queue.append((start, mid - 1))
-            queue.append((mid + 1, end)) 
-        return tree
-
+    def post_order_iter(self, node):
+        '''
+        Post-order traversal iterator.
+        '''
+        stack1, stack2 = [node], []
+        while stack1:
+            current = stack1.pop()
+            if current:
+                stack2.append(current)
+                stack1.append(current.left)
+                stack1.append(current.right)
+        while stack2:
+            yield stack2.pop().value
 
     def merge_n_trees(self, trees: List[Tree], order1: str, order2: str) -> Tree:
         '''
-        Merge n binary search trees.
-        Args: 
-            trees: List[Tree]: A list of trees to merge
-            order: str: The traversal order for each tree (in-order, pre-order, post-order)
-        Return:
-            Tree: The merged tree
+        Merges multiple binary search trees.
+        
+        Args:
+            trees: List[Tree]: List of trees to merge.
+            order1: str: Traversal order for the first tree.
+            order2: str: Traversal order for the second tree.
+        
+        Returns:
+            Tree: A new binary search tree that merges all given trees.
         '''
-        merged_tree = trees[0]
-
+        tree_merged = trees[0]
         for i in range(1, len(trees)):
-            self.tree1 = merged_tree
+            self.tree1 = tree_merged
             self.tree2 = trees[i]
-            merged_tree = self.merge(order1, order2)
+            tree_merged = self.merge(order1, order2)
 
-        return merged_tree
+        return tree_merged

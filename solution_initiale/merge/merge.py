@@ -30,7 +30,7 @@ class MergeBST:
         value1 = next(iterator1, None)
         value2 = next(iterator2, None)
 
-        def insert_balanced(tree, value):
+        def insert(tree, value):
             queue.append(tree.root) if tree.root else setattr(tree, 'root', Node(value))
             while queue:
                 current = queue.popleft()
@@ -49,10 +49,10 @@ class MergeBST:
 
         while value1 is not None or value2 is not None:
             if value2 is None or (value1 is not None and value1 <= value2):
-                insert_balanced(merged_tree, value1)
+                insert(merged_tree, value1)
                 value1 = next(iterator1, None)
             else:
-                insert_balanced(merged_tree, value2)
+                insert(merged_tree, value2)
                 value2 = next(iterator2, None)
 
         return merged_tree
