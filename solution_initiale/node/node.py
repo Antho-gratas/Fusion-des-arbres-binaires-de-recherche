@@ -3,5 +3,5 @@ class Node:
 
     def __init__(self, value: int) -> None:
         self.value = value  
-        self.left = None    # The left node
-        self.right = None   # The right node
+        self.left = None    
+        self.right = None  

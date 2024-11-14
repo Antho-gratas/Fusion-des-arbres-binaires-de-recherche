@@ -2,9 +2,7 @@ from node.node import Node
 from random import *
 
 class Tree():
-    '''
-    Binary search tree class
-    '''
+    '''Binary search tree class'''
 
     def __init__(self, root: Node = None)-> None:
         self.root = root

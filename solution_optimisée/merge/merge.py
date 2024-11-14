@@ -1,28 +1,27 @@
 from typing import List
 from tree.tree import Tree
 from node.node import Node
-from collections import deque
 
 class MergeBST:
+    '''Merge Binary search tree class'''
+    
     def __init__(self, tree1: Tree, tree2: Tree):
-        # Initialize the two binary search trees to be merged
         self.tree1 = tree1
         self.tree2 = tree2
 
     def merge(self, order1: str, order2: str) -> Tree:
         '''
-        Merges two binary search trees into a single balanced tree.
+        Merges two binary search trees into a single tree.
         
         Args:
             order1: str: Traversal type for the first tree (in-order, pre-order, post-order).
             order2: str: Traversal type for the second tree (in-order, pre-order, post-order).
         
         Returns:
-            Tree: A new balanced binary search tree containing all elements from both original trees.
+            Tree: A new binary search tree containing all elements from both original trees.
         '''
         
-        merged_tree = Tree()  
-        queue = deque()       
+        merged_tree = Tree()   
         
         iterator1 = self.get_iterator(self.tree1, order1)
         iterator2 = self.get_iterator(self.tree2, order2)
@@ -30,29 +29,12 @@ class MergeBST:
         value1 = next(iterator1, None)
         value2 = next(iterator2, None)
 
-        def insert_balanced(tree, value):
-            queue.append(tree.root) if tree.root else setattr(tree, 'root', Node(value))
-            while queue:
-                current = queue.popleft()
-                if value < current.value:
-                    if current.left is None:
-                        current.left = Node(value)
-                        break
-                    else:
-                        queue.append(current.left)
-                else:
-                    if current.right is None:
-                        current.right = Node(value)
-                        break
-                    else:
-                        queue.append(current.right)
-
         while value1 is not None or value2 is not None:
             if value2 is None or (value1 is not None and value1 <= value2):
-                insert_balanced(merged_tree, value1)
+                merged_tree.insert(value1)
                 value1 = next(iterator1, None)
             else:
-                insert_balanced(merged_tree, value2)
+                merged_tree.insert(value2)
                 value2 = next(iterator2, None)
 
         return merged_tree
@@ -70,11 +52,12 @@ class MergeBST:
         else:
             raise ValueError("Invalid traversal order specified")
 
-    def in_order_iter(self, node):
+    def in_order_iter(self, node: Node):
         '''
         In-order traversal iterator.
         '''
-        stack, current = [], node
+        stack = [] 
+        current = node  
         while stack or current:
             while current:
                 stack.append(current)
@@ -83,7 +66,7 @@ class MergeBST:
             yield current.value
             current = current.right
 
-    def pre_order_iter(self, node):
+    def pre_order_iter(self, node: Node):
         '''
         Pre-order traversal iterator.
         '''
@@ -95,11 +78,12 @@ class MergeBST:
                 stack.append(current.right)
                 stack.append(current.left)
 
-    def post_order_iter(self, node):
+    def post_order_iter(self, node: Node):
         '''
         Post-order traversal iterator.
         '''
-        stack1, stack2 = [node], []
+        stack1 = [node]
+        stack2 = []
         while stack1:
             current = stack1.pop()
             if current:
@@ -128,3 +112,9 @@ class MergeBST:
             tree_merged = self.merge(order1, order2)
 
         return tree_merged
+
+
+
+        
+        
+    

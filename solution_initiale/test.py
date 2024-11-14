@@ -1,7 +1,6 @@
 from typing import List
 from tree.tree import Tree
 from merge.merge import MergeBST
-from node.node import Node
 
 class Solution:
     def __init__(self, A1: Tree, A2: Tree, order1: str, order2: str):

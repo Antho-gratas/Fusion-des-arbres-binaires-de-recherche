@@ -2,14 +2,12 @@ from node.node import Node
 from random import *
 
 class Tree():
-    '''
-    Binary search tree class
-    '''
+    '''Tree class'''
 
-    def __init__(self, root: Node = None)-> None:
+    def __init__(self, root: Node = None) -> None:
         self.root = root
     
-    def insert(self, value: int)-> None:
+    def insert(self, value: int) -> None:
         '''
         Inserts a value into the tree iteratively
         Args:
@@ -26,17 +24,18 @@ class Tree():
                 if value < current.value:
                     if current.left is None:
                         current.left = new_node
-                        return
+                        break
                     else:
                         current = current.left
                 else:
                     if current.right is None:
                         current.right = new_node
-                        return
+                        break
                     else:
                         current = current.right
 
-    def generate_random_tree(self, size: int)-> None:
+
+    def generate_random_tree(self, size: int) -> None:
         '''
         Generate a random search binary tree of size `size` iteratively
         Args:
@@ -45,14 +44,14 @@ class Tree():
             None
         '''
         for i in range(size):
-            value = getrandbits(32) 
+            value = getrandbits(16)
             self.insert(value)
 
     def _in_order(self):
         '''
-        Get the tree in-order 
+        Get the tree in-order iteratively
         Returns:
-            None
+            result: list[int]: The list of node values in in-order
         '''
         result = []
         stack = []
@@ -70,9 +69,9 @@ class Tree():
 
     def get_in_order(self):
         '''
-        Get the tree in-order 
+        Get the tree in-order iteratively
         Returns:
-            None
+            result: list[int]: The list of node values in in-order
         '''
         return self._in_order()
 
@@ -83,18 +82,17 @@ class Tree():
             None
         '''
         print(self._in_order())
-        
 
     def _pre_order(self):
         '''
-        Get the tree pre-order 
+        Get the tree pre-order iteratively
         Returns:
             result: list[int]: The list of node values in pre-order
         '''
         result = []
         if self.root is None:
             return result
-        
+
         stack = [self.root]
 
         while stack:
@@ -110,15 +108,15 @@ class Tree():
 
     def get_pre_order(self):
         '''
-        Get the tree pre-order 
+        Get the tree pre-order iteratively
         Returns:
-            list[int]: The list of node values in pre-order
+            result: list[int]: The list of node values in pre-order
         '''
         return self._pre_order()
 
     def print_pre_order(self):
         '''
-        Print the tree in pre-order 
+        Print the tree in pre-order
         Returns:
             None
         '''
@@ -126,7 +124,7 @@ class Tree():
 
     def _post_order(self):
         '''
-        Get the tree post-order 
+        Get the tree post-order iteratively
         Returns:
             result: list[int]: The list of node values in post-order
         '''
@@ -154,15 +152,15 @@ class Tree():
 
     def get_post_order(self):
         '''
-        Get the tree post-order 
+        Get the tree post-order iteratively
         Returns:
-            list[int]: The list of node values in post-order
+            result: list[int]: The list of node values in post-order
         '''
         return self._post_order()
 
     def print_post_order(self):
         '''
-        Print the tree in post-order 
+        Print the tree in post-order
         Returns:
             None
         '''
@@ -170,7 +168,7 @@ class Tree():
 
     def print_tree(self):
         '''
-        Display the binary search tree in a graphical format like:
+        Display the binary search tree in a graphical format
         '''
         lines, *_ = self._display_aux(self.root)
         for line in lines:
@@ -182,7 +180,7 @@ class Tree():
         """
         if node is None:
             return [], 0, 0, 0
-        
+
         if node.right is None and node.left is None:
             line = str(node.value)
             width = len(line)
@@ -221,5 +219,3 @@ class Tree():
         zipped_lines = zip(left, right)
         lines = [a + u * ' ' + b for a, b in zipped_lines]
         return [first_line, second_line] + lines, n + m + u, max(p, q) + 2, n + u // 2
-
-
