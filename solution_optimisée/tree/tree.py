@@ -19,7 +19,7 @@ class Tree():
         if self.root is None:
             self.root = new_node
         else:
-            current = self.root
+            current: Node = self.root
             while current:
                 if value < current.value:
                     if current.left is None:
@@ -44,18 +44,18 @@ class Tree():
             None
         '''
         for i in range(size):
-            value = getrandbits(16)
+            value: int = getrandbits(32)
             self.insert(value)
 
-    def _in_order(self):
+    def _in_order(self)-> list[int]:
         '''
         Get the tree in-order iteratively
         Returns:
             result: list[int]: The list of node values in in-order
         '''
-        result = []
-        stack = []
-        current = self.root
+        result: list[int] = []
+        stack: list[Node] = []
+        current: Node = self.root
 
         while stack or current:
             while current:
@@ -67,15 +67,15 @@ class Tree():
 
         return result
 
-    def get_in_order(self):
+    def get_in_order(self)-> list[int]:
         '''
         Get the tree in-order iteratively
         Returns:
-            result: list[int]: The list of node values in in-order
+            list[int]: The list of node values in in-order
         '''
         return self._in_order()
 
-    def print_in_order(self):
+    def print_in_order(self)-> None:
         '''
         Print the tree in-order 
         Returns:
@@ -83,17 +83,17 @@ class Tree():
         '''
         print(self._in_order())
 
-    def _pre_order(self):
+    def _pre_order(self)-> list[int]:
         '''
         Get the tree pre-order iteratively
         Returns:
             result: list[int]: The list of node values in pre-order
         '''
-        result = []
+        result: list[int] = []
         if self.root is None:
             return result
 
-        stack = [self.root]
+        stack: list[Node] = [self.root]
 
         while stack:
             current = stack.pop()
@@ -106,15 +106,15 @@ class Tree():
 
         return result
 
-    def get_pre_order(self):
+    def get_pre_order(self)-> list[int]:
         '''
         Get the tree pre-order iteratively
         Returns:
-            result: list[int]: The list of node values in pre-order
+            list[int]: The list of node values in pre-order
         '''
         return self._pre_order()
 
-    def print_pre_order(self):
+    def print_pre_order(self)-> None:
         '''
         Print the tree in pre-order
         Returns:
@@ -122,26 +122,26 @@ class Tree():
         '''
         print(self._pre_order())
 
-    def _post_order(self):
+    def _post_order(self)-> list[int]:
         '''
         Get the tree post-order iteratively
         Returns:
             result: list[int]: The list of node values in post-order
         '''
-        result = []
+        result: list[int] = []
         if self.root is None:
             return result
 
-        stack = []
-        current = self.root
-        last_visited = None
+        stack: list[Node] = []
+        current: Node = self.root
+        last_visited: Node = None
 
         while stack or current:
             if current:
                 stack.append(current)
                 current = current.left
             else:
-                peek_node = stack[-1]
+                peek_node: Node = stack[-1]
                 if peek_node.right and last_visited != peek_node.right:
                     current = peek_node.right
                 else:
@@ -150,15 +150,15 @@ class Tree():
 
         return result
 
-    def get_post_order(self):
+    def get_post_order(self)-> list[int]:
         '''
         Get the tree post-order iteratively
         Returns:
-            result: list[int]: The list of node values in post-order
+            list[int]: The list of node values in post-order
         '''
         return self._post_order()
 
-    def print_post_order(self):
+    def print_post_order(self)-> None:
         '''
         Print the tree in post-order
         Returns:
@@ -174,7 +174,7 @@ class Tree():
         for line in lines:
             print(line)
 
-    def _display_aux(self, node):
+    def _display_aux(self, node: Node):
         """
         Returns list of strings, width, height, and horizontal coordinate of the root.
         """

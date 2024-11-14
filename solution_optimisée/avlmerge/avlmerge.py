@@ -5,11 +5,11 @@ from avlnode.avlnode import NodeAVL
 class MergeAVL:
     '''Merge AVL Binary search tree class'''
     
-    def __init__(self, tree1: TreeAVL, tree2: TreeAVL):
+    def __init__(self, tree1: TreeAVL, tree2: TreeAVL)-> None:
         self.tree1 = tree1
         self.tree2 = tree2
 
-    def merge(self, order1: str, order2: str) -> TreeAVL:
+    def merge(self, order1: str, order2: str)-> TreeAVL:
         '''
         Merges two AVL binary search trees into a single tree.
         
@@ -21,13 +21,13 @@ class MergeAVL:
             TreeAVL: A new AVL binary search tree containing all elements from both original trees.
         '''
         
-        merged_tree = TreeAVL()   
+        merged_tree: TreeAVL = TreeAVL()   
         
         iterator1 = self.get_iterator(self.tree1, order1)
         iterator2 = self.get_iterator(self.tree2, order2)
         
-        value1 = next(iterator1, None)
-        value2 = next(iterator2, None)
+        value1: int = next(iterator1, None)
+        value2: int = next(iterator2, None)
 
         while value1 is not None or value2 is not None:
             if value2 is None or (value1 is not None and value1 <= value2):
@@ -56,8 +56,8 @@ class MergeAVL:
         '''
         In-order traversal iterator.
         '''
-        stack = [] 
-        current = node  
+        stack: list[NodeAVL] = [] 
+        current: NodeAVL = node  
         while stack or current:
             while current:
                 stack.append(current)
@@ -70,7 +70,7 @@ class MergeAVL:
         '''
         Pre-order traversal iterator.
         '''
-        stack = [node]
+        stack: list[NodeAVL] = [node]
         while stack:
             current = stack.pop()
             if current:
@@ -82,10 +82,10 @@ class MergeAVL:
         '''
         Post-order traversal iterator.
         '''
-        stack1 = [node]
-        stack2 = []
+        stack1: list[NodeAVL] = [node]
+        stack2: list[NodeAVL] = []
         while stack1:
-            current = stack1.pop()
+            current: NodeAVL = stack1.pop()
             if current:
                 stack2.append(current)
                 stack1.append(current.left)
@@ -105,7 +105,7 @@ class MergeAVL:
         Returns:
             TreeAVL: A new AVL binary search tree that merges all given trees.
         '''
-        tree_merged = trees[0]
+        tree_merged: TreeAVL = trees[0]
         for i in range(1, len(trees)):
             self.tree1 = tree_merged
             self.tree2 = trees[i]

@@ -22,7 +22,7 @@ class Tree():
             self._insert(self.root, new_node)
             
 
-    def _insert(self, current_node: Node, new_node: Node) -> None:
+    def _insert(self, current_node: Node, new_node: Node)-> None:
         '''
         Recursively compare nodes to insert a new one
         Args:
@@ -56,7 +56,7 @@ class Tree():
             value : int = getrandbits(32)
             self.insert(value)
 
-    def _in_order(self, node: Node, tree_ordered : list[int])-> None:
+    def _in_order(self, node: Node, tree_ordered: list[int])-> None:
         '''
         Parcour the tree in-order recursively
         Args: 
@@ -156,7 +156,7 @@ class Tree():
         tree_ordered = self.get_post_order()
         print(tree_ordered)
 
-    def print_tree(self):
+    def print_tree(self)-> None:
         '''
         Display the binary search tree in a graphical format like:
         '''
@@ -164,7 +164,7 @@ class Tree():
         for line in lines:
             print(line)
 
-    def _display_aux(self, node):
+    def _display_aux(self, node: Node):
         """
         Returns list of strings, width, height, and horizontal coordinate of the root.
         """

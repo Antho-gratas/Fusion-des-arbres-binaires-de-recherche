@@ -6,7 +6,7 @@ from collections import deque
 class MergeBST:
     '''Merge Binary search tree class'''
     
-    def __init__(self, tree1: Tree, tree2: Tree):
+    def __init__(self, tree1: Tree, tree2: Tree) -> None:
         self.tree1 = tree1
         self.tree2 = tree2
 
