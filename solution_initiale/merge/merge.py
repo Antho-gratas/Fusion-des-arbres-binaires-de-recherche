@@ -7,8 +7,8 @@ class MergeBST:
     '''Merge Binary search tree class'''
     
     def __init__(self, tree1: Tree, tree2: Tree) -> None:
-        self.tree1 = tree1
-        self.tree2 = tree2
+        self.tree1: Tree = tree1
+        self.tree2: Tree = tree2
 
     def merge(self, order1: str, order2: str) -> Tree:
         '''

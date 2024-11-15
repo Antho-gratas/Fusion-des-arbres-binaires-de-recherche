@@ -7,8 +7,8 @@ class MergeAVL:
     '''Merge AVL Binary search tree class'''
     
     def __init__(self, tree1: TreeAVL, tree2: TreeAVL)-> None:
-        self.tree1 = tree1
-        self.tree2 = tree2
+        self.tree1: TreeAVL = tree1
+        self.tree2: TreeAVL = tree2
 
     def merge(self, order1: str, order2: str)-> TreeAVL:
         '''
