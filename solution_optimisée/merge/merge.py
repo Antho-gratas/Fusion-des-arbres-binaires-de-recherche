@@ -1,6 +1,7 @@
 from typing import List
 from tree.tree import Tree
 from node.node import Node
+from typing import Iterator
 
 class MergeBST:
     '''Merge Binary search tree class'''
@@ -23,8 +24,8 @@ class MergeBST:
         
         merged_tree: Tree = Tree()   
         
-        iterator1 = self.get_iterator(self.tree1, order1)
-        iterator2 = self.get_iterator(self.tree2, order2)
+        iterator1: Iterator[int] = self.get_iterator(self.tree1, order1)
+        iterator2: Iterator[int] = self.get_iterator(self.tree2, order2)
         
         value1: int = next(iterator1, None)
         value2: int = next(iterator2, None)
@@ -39,7 +40,7 @@ class MergeBST:
 
         return merged_tree
 
-    def get_iterator(self, tree: Tree, order: str):
+    def get_iterator(self, tree: Tree, order: str)-> Iterator[int]:
         '''
         Returns an iterator based on the specified traversal order.
         '''
@@ -52,7 +53,7 @@ class MergeBST:
         else:
             raise ValueError("Invalid traversal order specified")
 
-    def in_order_iter(self, node: Node):
+    def in_order_iter(self, node: Node)-> Iterator[int]:
         '''
         In-order traversal iterator.
         '''
@@ -66,7 +67,7 @@ class MergeBST:
             yield current.value
             current = current.right
 
-    def pre_order_iter(self, node: Node):
+    def pre_order_iter(self, node: Node)-> Iterator[int]:
         '''
         Pre-order traversal iterator.
         '''
@@ -78,7 +79,7 @@ class MergeBST:
                 stack.append(current.right)
                 stack.append(current.left)
 
-    def post_order_iter(self, node: Node):
+    def post_order_iter(self, node: Node)-> Iterator[int]:
         '''
         Post-order traversal iterator.
         '''
