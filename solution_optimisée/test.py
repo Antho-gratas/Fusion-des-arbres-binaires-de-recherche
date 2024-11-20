@@ -59,37 +59,41 @@ print('Test for "in-order" and "pre-order"')
 solution = Solution(A1, A2, "in-order", "pre-order")
 solution.run()
 
-# Test for "in-order" and "post-order"
-print('Test for "in-order" and "post-order"')
-solution = Solution(A1, A2, "in-order", "post-order")
-solution.run()
+if (str(input('Continue with test for "in-order"  and "post-order" ?(y/n)')) == "y"):
+    # Test for "in-order" and "post-order"
+    print('Test for "in-order" and "post-order"')
+    solution = Solution(A1, A2, "in-order", "post-order")
+    solution.run()
 
-# Test for "pre-order" and "pre-order"
-print('Test for "pre-order" and "pre-order"')
-solution = Solution(A1, A2, "pre-order", "pre-order")
-solution.run()
+if (str(input('Continue with test for "pre-order" and "pre-order" ?(y/n)')) == "y"):
+    # Test for "pre-order" and "pre-order"
+    print('Test for "pre-order" and "pre-order"')
+    solution = Solution(A1, A2, "pre-order", "pre-order")
+    solution.run()
 
 T1: Tree = Tree()
 T2: Tree = Tree()
 
-
-# Test for 50 000 and 20 000 nodes
-print('Test for 50 000 and 20 000 nodes')
-T1.generate_random_tree(50000)
-T2.generate_random_tree(20000)
-solution2 = Solution(T1, T2, "in-order", "post-order")
-solution2.merge_trees().print_in_order()
-
-# Test for 10 000 and 100 000 nodes
-print('Test for 10 000 and 100 000 nodes')
-solution2.A1.generate_random_tree(10000)
-solution2.A2.generate_random_tree(100000)  
-solution2.merge_trees().print_in_order()      
-
-# Test for 100 000 and 100 000 nodes
-print('Test for 100 000 and 100 000 nodes')
-solution2.A1.generate_random_tree(100000)
-solution2.A2.generate_random_tree(100000)  
-solution2.merge_trees().print_in_order()   
+if (str(input('Continue with test for trees with big number of values ? (y/n)')) == "y"):
+    # Test for 50 000 and 20 000 nodes
+    print('Test for 50 000 and 20 000 nodes')
+    T1.generate_random_tree(50000)
+    T2.generate_random_tree(20000)
+    solution2 = Solution(T1, T2, "in-order", "post-order")  
+    solution2.merge_trees().print_in_order()
+    
+    if (str(input('Continue with test for 10 000 and 100 000 nodes? (y/n)')) == "y"):
+        # Test for 10 000 and 100 000 nodes
+        print('Test for 10 000 and 100 000 nodes')
+        solution2.A1.generate_random_tree(10000)
+        solution2.A2.generate_random_tree(100000)  
+        solution2.merge_trees().print_in_order()  
+            
+    if (str(input('Continue with test for 100 000 and 100 000 nodes? (y/n)')) == "y"):
+        # Test for 100 000 and 100 000 nodes
+        print('Test for 100 000 and 100 000 nodes')
+        solution2.A1.generate_random_tree(100000)
+        solution2.A2.generate_random_tree(100000)  
+        solution2.merge_trees().print_in_order()   
 
 

@@ -32,7 +32,7 @@ class Solution:
         A3.print_tree()
         A4: Tree = Tree()
         A4.generate_random_tree(4)
-        print("A4:")
+        print("A4 (Arbre généré aléatoirement):")
         A4.print_tree()
         A5: Tree = self.merge_n_trees([self.A1, self.A2, A4])
         print("Fusion de A1, A2 et A4:")
@@ -61,13 +61,24 @@ solution = Solution(A1, A2, "in-order", "pre-order")
 solution.run()
 
 # Test for "in-order" and "post-order"
-print('Test for "in-order" and "post-order"')
-solution = Solution(A1, A2, "in-order", "post-order")
-solution.run()
+if (str(input('Continue with test for "in-order"  and "post-order" ?(y/n)')) == "y"):
+    print('Test for "in-order" and "post-order"')
+    solution = Solution(A1, A2, "in-order", "post-order")
+    solution.run()
 
-# Test for "pre-order" and "pre-order"
-print('Test for "pre-order" and "pre-order"')
-solution = Solution(A1, A2, "pre-order", "pre-order")
-solution.run()
+# Test for "pre-order" and "pre-order"    
+if (str(input('Continue with test for "pre-order" and "pre-order" ?(y/n)')) == "y"):
+    print('Test for "pre-order" and "pre-order"')
+    solution = Solution(A1, A2, "pre-order", "pre-order")
+    solution.run()
 
-# Impossible to test with large values ​​because recursion blocks us
+
+# Test for 50 000 and 20 000 nodes
+if (str(input('Continue with test for trees with big number of values ? (y/n)')) == "y"):
+    print('Test for 50 000 and 20 000 nodes')
+    T1: Tree = Tree()
+    T2: Tree = Tree()
+    T1.generate_random_tree(50000)
+    T2.generate_random_tree(20000)
+    solution2 = Solution(T1, T2, "in-order", "post-order")
+    solution2.merge_trees().print_in_order()
